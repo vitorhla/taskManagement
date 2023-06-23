@@ -7,7 +7,7 @@ import com.taskManagement.entities.Task;
 public class TaskDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	private Integer id;
 	private int codUser;
 	private String titulo;
 	private String descricao;
@@ -19,7 +19,7 @@ public class TaskDTO implements Serializable {
 	 }
 
 
-public TaskDTO( int id, int codUser, String titulo, Date dataCriacao, String status) {
+public TaskDTO( Integer id, int codUser, String titulo, Date dataCriacao, String status) {
 	
 	this.id = id;
 	this.codUser = codUser;
@@ -39,12 +39,12 @@ public TaskDTO(Task obj) {
 	}
 
 
-public int getId() {
+public Integer getId() {
 	return id;
 }
 
 
-public void setId(int id) {
+public void setId(Integer id) {
 	this.id = id;
 }
 

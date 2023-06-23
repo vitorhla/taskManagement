@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private int id;
+	private Integer id;
 	private int codUser;
 	private String titulo;
 	private String descricao;
@@ -18,7 +18,7 @@ public class Task implements Serializable {
 		
 	}
 	
-	public Task(int id, int codUser, String titulo, String descricao, Date dataCriacao, String status) {
+	public Task(Integer id, int codUser, String titulo, String descricao, Date dataCriacao, String status) {
 		this.id = id;
 		this.codUser = codUser;
 		this.titulo = titulo;
@@ -31,7 +31,7 @@ public class Task implements Serializable {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public int getCodUser() {
@@ -83,6 +83,8 @@ public class Task implements Serializable {
 	}
 	
 	
+
+	}
+
 	
 
-}
