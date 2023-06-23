@@ -1,7 +1,6 @@
 package com.taskManagement.services;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
@@ -11,12 +10,17 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.taskManagement.dto.TaskDTO;
 import com.taskManagement.entities.Task;
+import com.taskManagement.entities.User;
 import com.taskManagement.repositories.TaskRepository;
+import com.taskManagement.repositories.UserRepository;
 import com.taskManagement.services.exceptions.ControllerNotFoundException;
 import com.taskManagement.services.exceptions.DatabaseException;
 
@@ -28,12 +32,28 @@ public class TaskService {
 	private TaskRepository repository;
 
 	
+	@Autowired
+	private UserRepository userRepository;	
+	User user;
+	
+	private void buscarUsuarioLogado() {
+		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
+		if(!(autenticado instanceof AnonymousAuthenticationToken)) {
+			String uselog = autenticado.getName();
+			 user = userRepository.buscarusuariologado(uselog).get(0);
+		}
+	}
+	
 	
 	@Transactional(readOnly = true)
-	public TaskDTO findById(Integer id){
-		Optional<Task>  obj = repository.findById(id);
-		Task entity = obj.orElseThrow(() -> new ControllerNotFoundException("Entity not found"));
-		return new TaskDTO(entity);
+	public TaskDTO findTaskById(Integer id) {
+	    buscarUsuarioLogado();
+	    Long coduser = user.getId();
+	    Task obj = repository.findTaskById(id, coduser);
+	    if (obj == null) {
+	        throw new ControllerNotFoundException("Dados nao encontrados para este usuario");
+	    }
+	    return new TaskDTO(obj);
 	}
 	
 	@Transactional(readOnly = true)

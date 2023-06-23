@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,10 +22,11 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.taskManagement.dto.UserDTO;
 import com.taskManagement.dto.UserInsertDTO;
 import com.taskManagement.dto.UserUpdateDTO;
+import com.taskManagement.entities.User;
 import com.taskManagement.services.UserService;
 
 @RestController
-@RequestMapping(value= "/users")
+@RequestMapping(value= "/user")
 public class UserController {
 	
 	@Autowired
@@ -44,14 +46,7 @@ public class UserController {
 		
 	}
 	
-	/*
-	@PostMapping(value="/newUser")
-	public ResponseEntity <UserInsertDTO> insertNewUser (@RequestBody UserInsertDTO dto){
-		dto = service.insertNewUser(dto);
-		return ResponseEntity.ok().body(dto);
-	}
 	
-	*/
 	@PostMapping
 	public ResponseEntity <UserDTO> insert(@Valid @RequestBody UserInsertDTO dto){
 		UserDTO newDto= service.insert(dto);

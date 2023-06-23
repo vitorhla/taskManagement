@@ -11,8 +11,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
 	User findByEmail(String email);
 
-	@Query("from User where descruser =  ?1")
-	public List<User> buscarusuariologado(String descruser);
+	@Query("from User where email =  ?1")
+	public List<User> buscarusuariologado(String email);
 	
 	
 }

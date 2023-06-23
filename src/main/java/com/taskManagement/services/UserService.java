@@ -34,7 +34,6 @@ public class UserService implements UserDetailsService{
 	
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
 	
-	
 	@Autowired
 	private UserRepository repository;
 	
@@ -61,22 +60,7 @@ public class UserService implements UserDetailsService{
 		return new UserDTO (entity);	
 		
 	}
-	
-	
-	/*
-	@Transactional
-	public UserInsertDTO insertNewUser(UserInsertDTO dto) {
-		String descruser =  dto.getDescruser();
-		int rca =  dto.getRca();
-		String password =  passwordEncoder .encode(dto.getPassword());
-	
-		repository.insertNewUser(descruser,rca,password);
 		
-		return new UserInsertDTO()
-		
-	}
-	*/
-	
 	@Transactional
 	public UserDTO insert (UserInsertDTO dto) {
 		User entity = new User();
@@ -86,6 +70,22 @@ public class UserService implements UserDetailsService{
 		return new UserDTO(entity);
 		
 	}
+	
+
+	private void copyDtoToEntity (UserDTO dto, User entity) {
+		
+		entity.setEmail(dto.getEmail());
+		entity.setName(dto.getName());
+		entity.setPassword(passwordEncoder .encode(dto.getPassword()));
+
+		/*entity.getRegras().clear();*/
+		for(RoleDTO roleDTO :dto.getRoles()) {
+			Role role = roleRepository.getOne(roleDTO.getId());
+			entity.getRoles().add(role);
+				
+		}
+	}
+	
 	
 	@Transactional
 	public UserDTO update (Long id,UserUpdateDTO dto) {
@@ -101,22 +101,8 @@ public class UserService implements UserDetailsService{
 		
 	
 	}
-	
-	
-	
-	private void copyDtoToEntity (UserDTO dto, User entity) {
-		
-		entity.setEmail(dto.getEmail());
-		entity.setName(dto.getName());
-		entity.setPassword(passwordEncoder .encode(dto.getPassword()));
 
-		/*entity.getRegras().clear();*/
-		for(RoleDTO roleDTO :dto.getRoles()) {
-			Role role = roleRepository.getOne(roleDTO.getId());
-			entity.getRoles().add(role);
-				
-		}
-	}
+
 	
 	public void  delete (Long id) {
 		

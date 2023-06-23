@@ -21,53 +21,51 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableResourceServer
-public class ControllerServerConfig extends ResourceServerConfigurerAdapter{
+public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 
 	@Autowired
 	private Environment env;
-	
+
 	@Autowired
 	private JwtTokenStore tokenStore;
-	
-	private static final String[] PUBLIC = {"/oauth/token","/h2-console/**"};
-	private static final String[] ADMIN = {"/users/**","/Task/**"};
-	
-	
+
+	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**", "/users/**", "/tasks/**" };
+	private static final String[] ADMIN = { "/oauth/token", "/h2-console/**", "/users/**", "/tasks/**" };
+
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-	 resources.tokenStore(tokenStore);
+		resources.tokenStore(tokenStore);
 	}
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		//lieberar o h2-console
+		// Permitir o acesso ao h2-console
 		if (Arrays.asList(env.getActiveProfiles()).contains("dev")) {
 			http.headers().frameOptions().disable();
-			
 		}
-		
+
 		http.authorizeRequests()
-		.antMatchers(PUBLIC).permitAll()
-		.antMatchers(HttpMethod.GET,ADMIN).permitAll()
-		.antMatchers(HttpMethod.POST,ADMIN).permitAll()
-		.antMatchers(HttpMethod.PUT,ADMIN).permitAll()
-		.antMatchers(ADMIN).hasAnyRole("ADMIN")
-		.anyRequest().authenticated();
-		http.cors().configurationSource(corsConfigurationSource());		
+			.antMatchers(PUBLIC).permitAll()
+			.antMatchers(HttpMethod.GET, "/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/**").permitAll()
+			.antMatchers(HttpMethod.PUT, "/**").permitAll()
+			.anyRequest().authenticated();
+
+		http.cors().configurationSource(corsConfigurationSource());
 	}
 
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
-	    CorsConfiguration corsConfig = new CorsConfiguration();
-	    corsConfig.setAllowedOriginPatterns(Arrays.asList("*"));
-	    corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH"));
-	    corsConfig.setAllowCredentials(true);
-	    corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	    source.registerCorsConfiguration("/**", corsConfig);
-	    return source;
+		CorsConfiguration corsConfig = new CorsConfiguration();
+		corsConfig.setAllowedOriginPatterns(Arrays.asList("*"));
+		corsConfig.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "PATCH"));
+		corsConfig.setAllowCredentials(true);
+		corsConfig.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", corsConfig);
+		return source;
 	}
-	 
 	
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
