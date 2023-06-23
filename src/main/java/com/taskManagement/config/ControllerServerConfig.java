@@ -30,8 +30,7 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter{
 	private JwtTokenStore tokenStore;
 	
 	private static final String[] PUBLIC = {"/oauth/token","/h2-console/**"};
-	private static final String[] OPERATOR_OR_VENDEDOR = {"/pesquisa/**","/users/**","/ckeckin/**"};
-	private static final String[] ADMIN = {"/users/**"};
+	private static final String[] ADMIN = {"/users/**","/Task/**"};
 	
 	
 	@Override
@@ -49,10 +48,9 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter{
 		
 		http.authorizeRequests()
 		.antMatchers(PUBLIC).permitAll()
-		.antMatchers(HttpMethod.GET,OPERATOR_OR_VENDEDOR).permitAll()
-		.antMatchers(HttpMethod.POST,OPERATOR_OR_VENDEDOR).permitAll()
-		.antMatchers(HttpMethod.PUT,OPERATOR_OR_VENDEDOR).permitAll()
-		.antMatchers(ADMIN).hasAnyRole("OPERATOR","ADMIN")
+		.antMatchers(HttpMethod.GET,ADMIN).permitAll()
+		.antMatchers(HttpMethod.POST,ADMIN).permitAll()
+		.antMatchers(HttpMethod.PUT,ADMIN).permitAll()
 		.antMatchers(ADMIN).hasAnyRole("ADMIN")
 		.anyRequest().authenticated();
 		http.cors().configurationSource(corsConfigurationSource());		

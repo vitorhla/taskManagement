@@ -12,7 +12,7 @@ import com.taskManagement.entities.Role;
 import com.taskManagement.services.RoleService;
 
 @RestController
-@RequestMapping(value =  "/Regras")
+@RequestMapping(value =  "/Roles")
 public class RoleController {
 	
 	@Autowired

@@ -32,6 +32,7 @@ public TaskDTO( Integer id, int codUser, String titulo, Date dataCriacao, String
 public TaskDTO(Task obj) {
 	 id = obj.getId();
 	 codUser = obj.getCodUser();
+	 descricao = obj.getDescricao();
 	 titulo = obj.getTitulo();
 	 dataCriacao = obj.getDataCriacao();
 	 status = obj.getStatus();
