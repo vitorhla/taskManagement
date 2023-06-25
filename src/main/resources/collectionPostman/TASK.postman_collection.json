@@ -1,0 +1,363 @@
+{
+	"info": {
+		"_postman_id": "af467eae-5f61-4a8b-bc17-3374fa478cb1",
+		"name": "TASK",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14844831"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (responseCode.code >= 200 && responseCode.code < 300) {\r",
+							"    var json = JSON.parse(responseBody);\r",
+							"    postman.setEnvironmentVariable('token', json.access_token);\r",
+							"    postman.setEnvironmentVariable('refresh_token', json.refresh_token);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "taskManagement",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "taskManagement",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "vitor@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "padrao",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/oauth/token",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oauth",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findTaskById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc3MzYyOTQsInVzZXJfbmFtZSI6InZpdG9yQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiZWY1YTFmMTEtN2VmYi00MjRhLWIzZDgtYzU0MWQwNzliYTNlIiwiY2xpZW50X2lkIjoidGFza01hbmFnZW1lbnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.1T8tYRRJWwCulKW7cfhY-i3zSuAaO-nj4XYJRSKBtbg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/task/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllTask",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc3ODEyNjIsInVzZXJfbmFtZSI6InZpdG9yQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiYTdkMzBmYTAtNDllYi00MTdlLTg1NGEtNzE2NTU2ZTE2NzVlIiwiY2xpZW50X2lkIjoidGFza01hbmFnZW1lbnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.42XaRKsMRAOflDIIw4MAUwTcPTwnETh4UY8OKCSZHKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/task/lista",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"lista"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAllTaskPage",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc2MjM0NzUsInVzZXJfbmFtZSI6InZpdG9yQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiMzIwNTI5ZGYtMWU2OS00ODZlLWEwOGYtMGNiOTM0Yjk5ZDhhIiwiY2xpZW50X2lkIjoidGFza01hbmFnZW1lbnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.df7KDWFXmNk8yuaTqLQVAmO3GYB8DMLngp0vuOBlxoI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/task/findPage",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"findPage"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New User",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "taskManagement",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "taskManagement",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \r\n    \"email\": \"sosthenes@gmail.com\",\r\n    \"name\": \"sosthenes\",\r\n    \"password\": \"12345\",\r\n    \"roles\": [\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ]\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc3MzExMjksInVzZXJfbmFtZSI6InJvZHJpZ29AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiI1ZThkZTQ0My0zMDIxLTQwN2EtOGE4Zi0zMmNiNGJkMzhjODEiLCJjbGllbnRfaWQiOiJ0YXNrTWFuYWdlbWVudCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.3wegvQrgq0dkMFlcJZpQ7yr9sVlSCKgfRvjkg8D3K10",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n            \"codUser\": 1,\r\n            \"titulo\": \"TAREFA TREINA RECIFE\",\r\n            \"descricao\": \"TAREFA TREINA RECIFE IPI\",\r\n            \"dataCriacao\": \"2023-06-23T03:00:00.000+00:00\",\r\n            \"status\": \"CONCLUIDA\"\r\n        }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/task/newTask",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"newTask"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc3MzExMjksInVzZXJfbmFtZSI6InJvZHJpZ29AZ21haWwuY29tIiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9BRE1JTiJdLCJqdGkiOiI1ZThkZTQ0My0zMDIxLTQwN2EtOGE4Zi0zMmNiNGJkMzhjODEiLCJjbGllbnRfaWQiOiJ0YXNrTWFuYWdlbWVudCIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdfQ.3wegvQrgq0dkMFlcJZpQ7yr9sVlSCKgfRvjkg8D3K10",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"titulo\" : \"Tarefa treina recife update\",\r\n    \"descricao\" : \"realizado o update de teste \",\r\n    \"status\" : \"Concluido\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/task/updateTask/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"updateTask",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc3MzY2OTIsInVzZXJfbmFtZSI6InZpdG9yQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiZDRmODY0YmYtZDJiZS00ZWU0LWE0ZmQtZWFmMTY1YmNkNTA2IiwiY2xpZW50X2lkIjoidGFza01hbmFnZW1lbnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.R1a_gUSsT0mpBI55vKUR3jtadZdOfKU0J9ramrLC_DU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/task/deleteTask/20",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"deleteTask",
+						"20"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CompleteTaks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2ODc3ODEyNjIsInVzZXJfbmFtZSI6InZpdG9yQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjpbIlJPTEVfQURNSU4iXSwianRpIjoiYTdkMzBmYTAtNDllYi00MTdlLTg1NGEtNzE2NTU2ZTE2NzVlIiwiY2xpZW50X2lkIjoidGFza01hbmFnZW1lbnQiLCJzY29wZSI6WyJyZWFkIiwid3JpdGUiXX0.42XaRKsMRAOflDIIw4MAUwTcPTwnETh4UY8OKCSZHKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\" : \"NAO CONCLUIDO\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/task/completeTask/17",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"task",
+						"completeTask",
+						"17"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
