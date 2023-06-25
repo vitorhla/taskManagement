@@ -19,7 +19,14 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 @Configuration
+@EnableSwagger2
 @EnableResourceServer
 public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 
@@ -29,7 +36,7 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
 	private JwtTokenStore tokenStore;
 
-	private static final String[] PUBLIC = { "/oauth/token", "/h2-console/**", "/users/**", "/tasks/**" };
+	private static final String[] PUBLIC = { "/hello","/oauth/token", "/h2-console/**", "/users/**"};
 	private static final String[] ADMIN = { "/oauth/token", "/h2-console/**", "/users/**", "/tasks/**" };
 
 	@Override
@@ -75,6 +82,15 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 	    return bean;
 	}
 	
+	
+	@Bean
+	public Docket api() {
+	    return new Docket(DocumentationType.SWAGGER_2)
+	            .select()
+	            .apis(RequestHandlerSelectors.basePackage("com.taskManagement.controller"))
+	            .paths(PathSelectors.any())
+	            .build();
+	}
 	
 	
 	
