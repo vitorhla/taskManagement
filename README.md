@@ -60,6 +60,24 @@ Copie e cole o link abaixo no navegador apos a inicialização da API
 http://localhost:8080/swagger-ui.html#/user-controller
 ```
 
+##Aplication.properties
+Para alterar o ambiente deve mudar a variavel dev para prod ou test
+```
+spring.profiles.active=${APP_PROFILE:dev}
+spring.jpa.open-in-view=false
+
+security.oauth2.client.client-id=${CLIENT_ID:taskManagement}
+security.oauth2.client.client-secret=${CLIENT_SECRET:taskManagement}
+
+jwt.secret=${JWT_SECRET:MY-JWT-SECRET}
+jwt.duration=${JWT_DURATION:86400}
+
+```
+
+## Configuracao do banco H2 no navegador
+Link http://localhost:8080/h2-console/
+
+![image](https://github.com/vitorhla/taskManagement/assets/78744972/70bf6b69-0f18-4ff4-81ad-dab3e5462ff8)
 
 
 ## SQL para seed da base de dados de teste
