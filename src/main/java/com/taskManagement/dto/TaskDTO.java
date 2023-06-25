@@ -29,6 +29,13 @@ public TaskDTO( Integer id, int codUser, String titulo, Date dataCriacao, String
 }
 
 
+
+
+public TaskDTO(String status) {
+	this.status = status;
+}
+
+
 public TaskDTO(Task entity) {
 	 id = entity.getId();
 	 codUser = entity.getCodUser();

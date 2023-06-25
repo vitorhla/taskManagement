@@ -32,6 +32,8 @@ public class Task implements Serializable {
 		
 	}
 	
+
+
 	public Task(Integer id, int codUser, String titulo, String descricao, Date dataCriacao, String status) {
 		this.id = id;
 		this.codUser = codUser;

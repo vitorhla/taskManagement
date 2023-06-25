@@ -2,6 +2,7 @@ package com.taskManagement.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -62,6 +63,13 @@ public class TaskController {
 	public ResponseEntity <TaskDTO> update(@PathVariable Integer id, @RequestBody TaskDTO dto){
 		dto = service.update(id,dto);
 		return ResponseEntity.ok().body(dto);
+	}
+	
+	@PutMapping("/completeTask/{id}")
+	public ResponseEntity<Void> completeTask(@PathVariable Integer id, @RequestBody Map<String, String> requestBody) {
+	    String status = requestBody.get("status");
+	    service.completeTaskById(id, status);
+	    return ResponseEntity.ok().build();
 	}
 	
 	

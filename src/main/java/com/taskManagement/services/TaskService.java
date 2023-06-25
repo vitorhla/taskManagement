@@ -100,7 +100,7 @@ public class TaskService {
 			Task entity = repository.getOne(id);
 			entity.setTitulo(dto.getTitulo());
 			entity.setDescricao(dto.getDescricao());
-			entity.setStatus(dto.getStatus());
+			entity.setStatus("NAO CONCLUIDO");
 			entity= repository.save(entity);
 		return new TaskDTO(entity);
 		}
@@ -110,6 +110,22 @@ public class TaskService {
 		}
 		
 	}
+	
+	
+	@Transactional
+	public void completeTaskById(Integer id, String status) {
+		try {
+	    repository.completeTaskById(id,status);
+		}
+		catch (EmptyResultDataAccessException e ) {
+			throw new ControllerNotFoundException("Id not found" + id);
+			}
+			catch (DataIntegrityViolationException e ) {
+			throw new DatabaseException("Integrity violation");
+				
+			}
+	}
+	
 	
 	
 	@Transactional
