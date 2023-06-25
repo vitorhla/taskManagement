@@ -36,6 +36,7 @@ public class TaskService {
 	private UserRepository userRepository;	
 	User user;
 	
+	
 	private void buscarUsuarioLogado() {
 		Authentication autenticado = SecurityContextHolder.getContext().getAuthentication();
 		if(!(autenticado instanceof AnonymousAuthenticationToken)) {
@@ -44,7 +45,7 @@ public class TaskService {
 		}
 	}
 	
-	
+
 	@Transactional(readOnly = true)
 	public TaskDTO findTaskById(Integer id) {
 	    buscarUsuarioLogado();
@@ -55,33 +56,42 @@ public class TaskService {
 	    }
 	    return new TaskDTO(obj);
 	}
-	
+
 	@Transactional(readOnly = true)
 	public List<TaskDTO> findAll() {
-		List<Task> result = repository.findAll();
+		 buscarUsuarioLogado();
+		    Long coduser = user.getId();
+		    
+		List<Task> result = repository.findAllTask(coduser);
 		return result.stream().map(x -> new TaskDTO(x)).collect(Collectors.toList());
 	}
 	
+
 	@Transactional(readOnly = true)
 	public Page<TaskDTO> findAllPaged(Pageable pageable){
-		Page<Task> list  = repository.findAll(pageable);
+		
+		 buscarUsuarioLogado();
+		    Long coduser = user.getId();
+		
+		
+		Page<Task> list  = repository.findAllPage(coduser,pageable);
 		return list.map(x -> new TaskDTO(x));		
 	}
 	
+
 	
 	@Transactional
 	public TaskDTO insert(TaskDTO dto) {
 		Task entity =  new Task();
-	
-		entity.setCodUser(1);
+		entity.setCodUser(dto.getCodUser());
 		entity.setTitulo(dto.getTitulo());
 		entity.setDescricao(dto.getDescricao());
 		entity.setDataCriacao(dto.getDataCriacao());
 		entity.setStatus(dto.getStatus());
-		entity = repository.save(entity);		
+		entity = repository.save(entity);
+		
 		return new TaskDTO(entity);
 	}
-	
 	
 	
 	@Transactional
@@ -102,10 +112,11 @@ public class TaskService {
 	}
 	
 	
-	
+	@Transactional
 	public void delete(Integer id) {
 		try {
-		repository.deleteById(id);
+			
+		repository.deleteTaskById(id);
 		}
 		catch (EmptyResultDataAccessException e ) {
 		throw new ControllerNotFoundException("Id not found" + id);
@@ -116,15 +127,5 @@ public class TaskService {
 		}
 		
 	}
-	
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
 }

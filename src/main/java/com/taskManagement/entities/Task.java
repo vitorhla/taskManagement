@@ -20,6 +20,7 @@ public class Task implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private int codUser;
 	private String titulo;
 	private String descricao;
@@ -41,39 +42,51 @@ public class Task implements Serializable {
 	}
 	
 	
-	public int getId() {
+	
+	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public int getCodUser() {
 		return codUser;
 	}
+
 	public void setCodUser(int codUser) {
 		this.codUser = codUser;
 	}
+
 	public String getTitulo() {
 		return titulo;
 	}
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
+
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}

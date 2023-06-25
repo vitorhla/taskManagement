@@ -48,17 +48,17 @@ public class TaskController {
 	}
 	
 	
-	@PostMapping
+	@PostMapping(value = "/newTask")
 	public ResponseEntity <TaskDTO> insert(@RequestBody TaskDTO dto){
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-		.buildAndExpand(dto.getId()).toUri();
+				.buildAndExpand(dto.getId()).toUri();
 		return ResponseEntity.created(uri).body(dto);
-		}
-	
-	
-	
-	@PutMapping(value =  "/{id}")
+		
+		
+	}
+
+	@PutMapping(value =  "/updateTask/{id}")
 	public ResponseEntity <TaskDTO> update(@PathVariable Integer id, @RequestBody TaskDTO dto){
 		dto = service.update(id,dto);
 		return ResponseEntity.ok().body(dto);
@@ -66,10 +66,10 @@ public class TaskController {
 	
 	
 	
-	@DeleteMapping(value =  "/{id}")
+	@DeleteMapping(value =  "/deleteTask/{id}")
 	public ResponseEntity <Void> delete(@PathVariable Integer id){
 		service.delete(id);
-		return ResponseEntity.noContent().build();	
+		return ResponseEntity.ok().build();	
 	}
 	
 	
