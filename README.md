@@ -75,7 +75,6 @@ jwt.duration=${JWT_DURATION:86400}
 
 ## Configuracao do banco H2 no navegador
 Link http://localhost:8080/h2-console/
-
 ![image](https://github.com/vitorhla/taskManagement/assets/78744972/70bf6b69-0f18-4ff4-81ad-dab3e5462ff8)
 
 ## Para o banco MYSQL
