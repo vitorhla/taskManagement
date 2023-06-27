@@ -1,4 +1,4 @@
-package com.taskManagement.controllers.exceptios;
+package com.taskManagement.Controllers.exceptios;
 
 import java.io.Serializable;
 import java.time.Instant;

@@ -12,7 +12,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
-import com.taskManagement.controllers.exceptios.FieldMessage;
+import com.taskManagement.Controllers.exceptios.FieldMessage;
 import com.taskManagement.dto.UserUpdateDTO;
 import com.taskManagement.entities.User;
 import com.taskManagement.repositories.UserRepository;
