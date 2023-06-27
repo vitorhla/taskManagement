@@ -1,4 +1,4 @@
-package com.taskManagement.resourcers.exceptions;
+package com.taskManagement.controllers.exceptions;
 
 import java.io.Serializable;
 

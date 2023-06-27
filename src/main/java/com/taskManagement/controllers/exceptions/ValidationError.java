@@ -1,4 +1,4 @@
-package com.taskManagement.resourcers.exceptions;
+package com.taskManagement.controllers.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
