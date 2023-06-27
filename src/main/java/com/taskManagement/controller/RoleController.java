@@ -1,4 +1,4 @@
-package com.taskManagement.controllers;
+package com.taskManagement.controller;
 
 import java.util.List;
 
@@ -12,16 +12,17 @@ import com.taskManagement.entities.Role;
 import com.taskManagement.services.RoleService;
 
 @RestController
-@RequestMapping(value = "/roles")
+@RequestMapping(value =  "/Roles")
 public class RoleController {
-
+	
 	@Autowired
 	private RoleService service;
-
+	
 	@GetMapping
-	public ResponseEntity<List<Role>> findAll() {
-		List<Role> list = service.findAll();
+	public ResponseEntity<List<Role>> findAll(){
+	List<Role> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-
+	
+	
 }

@@ -1,5 +1,6 @@
 package com.taskManagement.entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
@@ -22,23 +23,27 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "USER")
-public class User implements UserDetails {
-
+public class User implements UserDetails,Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String name;
+	private String  name;
 	private String email;
 	private String password;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "userRole", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
-
+	@ManyToMany(fetch =  FetchType.EAGER)
+	@JoinTable(name="userRole",
+	joinColumns = @JoinColumn(name="user_id"),
+	inverseJoinColumns = @JoinColumn(name="role_id"))
+	private Set<Role> roles =  new HashSet<>();
+		
 	public User() {
-
+		
 	}
 
+	
 	public User(Long id, String email, String name, String password) {
 		super();
 		this.id = id;
@@ -55,21 +60,29 @@ public class User implements UserDetails {
 		this.id = id;
 	}
 
+
 	public String getEmail() {
 		return email;
 	}
+
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+
+
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+
+
+	public void setName(String  name) {
 		this.name = name;
 	}
+
+
 
 	public String getPassword() {
 		return password;
@@ -79,14 +92,17 @@ public class User implements UserDetails {
 		this.password = password;
 	}
 
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
+
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -100,11 +116,12 @@ public class User implements UserDetails {
 		return id == other.id;
 	}
 
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream().map(regra -> new SimpleGrantedAuthority(regra.getAuthority()))
-				.collect(Collectors.toList());
+		return roles.stream().map(regra ->new SimpleGrantedAuthority(regra.getAuthority())).collect(Collectors.toList());
 	}
+
 
 	@Override
 	public String getUsername() {
@@ -112,11 +129,13 @@ public class User implements UserDetails {
 		return email;
 	}
 
+
 	@Override
 	public boolean isAccountNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
 
 	@Override
 	public boolean isAccountNonLocked() {
@@ -124,16 +143,26 @@ public class User implements UserDetails {
 		return true;
 	}
 
+
 	@Override
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
+
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	
+	
+	
+	
+	
+	
+	
 
 }

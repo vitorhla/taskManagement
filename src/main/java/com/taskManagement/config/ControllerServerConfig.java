@@ -36,7 +36,7 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
 	private JwtTokenStore tokenStore;
 
-	private static final String[] PUBLIC = { "/hello", "/oauth/token", "/h2-console/**", "/users/**" };
+	private static final String[] PUBLIC = { "/hello","/oauth/token", "/h2-console/**", "/users/**"};
 	private static final String[] ADMIN = { "/oauth/token", "/h2-console/**", "/users/**", "/tasks/**" };
 
 	@Override
@@ -52,11 +52,11 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 		}
 
 		http.authorizeRequests()
-		.antMatchers(PUBLIC).permitAll()
-		.antMatchers(ADMIN).permitAll()
-		.antMatchers(HttpMethod.GET, "/**").permitAll()
-		.antMatchers(HttpMethod.POST, "/**").permitAll().antMatchers(HttpMethod.PUT, "/**").permitAll()
-				.anyRequest().authenticated();
+			.antMatchers(PUBLIC).permitAll()
+			.antMatchers(HttpMethod.GET, "/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/**").permitAll()
+			.antMatchers(HttpMethod.PUT, "/**").permitAll()
+			.anyRequest().authenticated();
 
 		http.cors().configurationSource(corsConfigurationSource());
 	}
@@ -73,20 +73,25 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 		source.registerCorsConfiguration("/**", corsConfig);
 		return source;
 	}
-
+	
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
-		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(
-				new CorsFilter(corsConfigurationSource()));
-		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-		return bean;
+	    FilterRegistrationBean<CorsFilter> bean
+	            = new FilterRegistrationBean<>(new CorsFilter(corsConfigurationSource()));
+	    bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	    return bean;
 	}
-
+	
+	
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.taskManagement.controller")).paths(PathSelectors.any())
-				.build();
+	    return new Docket(DocumentationType.SWAGGER_2)
+	            .select()
+	            .apis(RequestHandlerSelectors.basePackage("com.taskManagement.controller"))
+	            .paths(PathSelectors.any())
+	            .build();
 	}
-
+	
+	
+	
 }
