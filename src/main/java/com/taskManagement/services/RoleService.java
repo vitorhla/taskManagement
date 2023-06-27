@@ -12,10 +12,10 @@ import com.taskManagement.repositories.RoleRepository;
 public class RoleService {
 	@Autowired
 	private RoleRepository repository;
-	
-	public List<Role>findAll(){
+
+	public List<Role> findAll() {
 		return repository.findAll();
-		
+
 	}
 
 }

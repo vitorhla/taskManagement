@@ -16,23 +16,21 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "TASK")
 public class Task implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private int codUser;
 	private String titulo;
 	private String descricao;
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date dataCriacao;
 	private String status;
-	
-	public Task () {
-		
-	}
-	
 
+	public Task() {
+
+	}
 
 	public Task(Integer id, int codUser, String titulo, String descricao, Date dataCriacao, String status) {
 		this.id = id;
@@ -42,9 +40,7 @@ public class Task implements Serializable {
 		this.dataCriacao = dataCriacao;
 		this.status = status;
 	}
-	
-	
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -109,10 +105,5 @@ public class Task implements Serializable {
 		Task other = (Task) obj;
 		return id == other.id;
 	}
-	
-	
 
-	}
-
-	
-
+}

@@ -30,124 +30,95 @@ import com.taskManagement.services.exceptions.ControllerNotFoundException;
 import com.taskManagement.services.exceptions.DatabaseException;
 
 @Service
-public class UserService implements UserDetailsService{
-	
+public class UserService implements UserDetailsService {
+
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
-	
+
 	@Autowired
 	private UserRepository repository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
-	
-	
+
 	@Transactional(readOnly = true)
-	public Page<UserDTO> findAllPaged(Pageable pageable){
-		Page<User> list =  repository.findAll(pageable);
-		return list.map(x-> new UserDTO(x));
-				
+	public Page<UserDTO> findAllPaged(Pageable pageable) {
+		Page<User> list = repository.findAll(pageable);
+		return list.map(x -> new UserDTO(x));
+
 	}
-	
-	
+
 	@Transactional(readOnly = true)
 	public UserDTO findById(Long id) {
-		Optional <User> obj =  repository.findById(id);
-		User entity =  obj.orElseThrow(() -> new ControllerNotFoundException ("Entity not found"));
-		return new UserDTO (entity);	
-		
+		Optional<User> obj = repository.findById(id);
+		User entity = obj.orElseThrow(() -> new ControllerNotFoundException("Entity not found"));
+		return new UserDTO(entity);
+
 	}
-		
+
 	@Transactional
-	public UserDTO insert (UserInsertDTO dto) {
+	public UserDTO insert(UserInsertDTO dto) {
 		User entity = new User();
-		copyDtoToEntity(dto,entity);
-		entity.setPassword(passwordEncoder .encode(dto.getPassword()));
+		copyDtoToEntity(dto, entity);
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		entity = repository.save(entity);
 		return new UserDTO(entity);
-		
-	}
-	
 
-	private void copyDtoToEntity (UserDTO dto, User entity) {
-		
+	}
+
+	private void copyDtoToEntity(UserDTO dto, User entity) {
+
 		entity.setEmail(dto.getEmail());
 		entity.setName(dto.getName());
-		entity.setPassword(passwordEncoder .encode(dto.getPassword()));
+		entity.setPassword(passwordEncoder.encode(dto.getPassword()));
 
-		/*entity.getRegras().clear();*/
-		for(RoleDTO roleDTO :dto.getRoles()) {
+		/* entity.getRegras().clear(); */
+		for (RoleDTO roleDTO : dto.getRoles()) {
 			Role role = roleRepository.getOne(roleDTO.getId());
 			entity.getRoles().add(role);
-				
+
 		}
 	}
-	
-	
+
 	@Transactional
-	public UserDTO update (Long id,UserUpdateDTO dto) {
+	public UserDTO update(Long id, UserUpdateDTO dto) {
 		try {
 			User entity = repository.getOne(id);
-			copyDtoToEntity(dto,entity);
+			copyDtoToEntity(dto, entity);
 			entity = repository.save(entity);
-			return new UserDTO(entity);			
+			return new UserDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ControllerNotFoundException("Id not found" + id);
 		}
-		catch (EntityNotFoundException e) {
-			throw new ControllerNotFoundException ("Id not found" + id);
-		}
-		
-	
+
 	}
 
+	public void delete(Long id) {
 
-	
-	public void  delete (Long id) {
-		
 		try {
 			repository.deleteById(id);
-		}
-		catch(EmptyResultDataAccessException e ) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new ControllerNotFoundException("Id not Found" + id);
-		}
-		catch(DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity Violation");
 		}
-		
+
 	}
-	
-	
 
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = repository.findByEmail(username);
 
-
-		@Override
-		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-			User user = repository.findByEmail(username);
-						
-			if(user == null) {
-				logger.error("usuario nao encontrado" + username);
-				throw new UsernameNotFoundException("Usuario não Encontrado");
-			}
-			
-			logger.info("usuario encontrado" + username);
-			
-			return user;
+		if (user == null) {
+			logger.error("usuario nao encontrado" + username);
+			throw new UsernameNotFoundException("Usuario não Encontrado");
 		}
-	
-	
-		
-		
-		
-		
-		
-		
+
+		logger.info("usuario encontrado" + username);
+
+		return user;
 	}
-	
-	
-	
-	
-	
 
-
+}
