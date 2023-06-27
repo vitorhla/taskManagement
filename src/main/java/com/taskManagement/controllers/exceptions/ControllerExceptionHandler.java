@@ -1,4 +1,4 @@
-package com.taskManagement.Controllers.exceptios;
+package com.taskManagement.controllers.exceptions;
 
 import java.time.Instant;
 

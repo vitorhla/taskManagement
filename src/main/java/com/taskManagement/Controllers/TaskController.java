@@ -1,4 +1,4 @@
-package com.taskManagement.Controllers;
+package com.taskManagement.controllers;
 
 import java.net.URI;
 import java.util.List;
