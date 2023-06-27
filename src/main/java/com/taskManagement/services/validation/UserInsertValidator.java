@@ -8,10 +8,10 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.taskManagement.controllers.exceptions.FieldMessage;
 import com.taskManagement.dto.UserInsertDTO;
 import com.taskManagement.entities.User;
 import com.taskManagement.repositories.UserRepository;
+import com.taskManagement.resourcers.exceptions.FieldMessage;
 
 public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
 
