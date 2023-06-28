@@ -53,6 +53,7 @@ public class ControllerServerConfig extends ResourceServerConfigurerAdapter {
 
 		http.authorizeRequests()
 			.antMatchers(PUBLIC).permitAll()
+			.antMatchers(ADMIN).permitAll()
 			.antMatchers(HttpMethod.GET, "/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/**").permitAll()
 			.antMatchers(HttpMethod.PUT, "/**").permitAll()
