@@ -23,55 +23,55 @@ import com.taskManagement.dto.TaskDTO;
 import com.taskManagement.services.TaskService;
 
 @RestController
-@RequestMapping(value =  "/tasks")
+@RequestMapping(value = "/tasks")
 public class TaskController {
 
 	@Autowired
 	private TaskService service;
-		
+
 	@GetMapping(value = "/{id}")
-	public ResponseEntity <TaskDTO>findById(@PathVariable Integer id){
-		TaskDTO  dto = service.findTaskById(id);
-		return ResponseEntity.ok().body(dto);		
+	public ResponseEntity<TaskDTO> findById(@PathVariable Integer id) {
+		TaskDTO dto = service.findTaskById(id);
+		return ResponseEntity.ok().body(dto);
 	}
 
 	@GetMapping(value = "/lista")
-	public ResponseEntity<List<TaskDTO>>findAll(){
-		List<TaskDTO> list =  service.findAll();
+	public ResponseEntity<List<TaskDTO>> findAll() {
+		List<TaskDTO> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	
+
 	@GetMapping(value = "/page")
-	public ResponseEntity<Page<TaskDTO>> findPage(Pageable pageable){
-		Page<TaskDTO> list =  service.findAllPaged(pageable);
-		return ResponseEntity.ok().body(list);	
+	public ResponseEntity<Page<TaskDTO>> findPage(Pageable pageable) {
+		Page<TaskDTO> list = service.findAllPaged(pageable);
+		return ResponseEntity.ok().body(list);
 	}
-	
+
 	@PostMapping(value = "/newTask")
-	public ResponseEntity <TaskDTO> insert(@RequestBody TaskDTO dto){
+	public ResponseEntity<TaskDTO> insert(@RequestBody TaskDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
-		return ResponseEntity.created(uri).body(dto);	
+		return ResponseEntity.created(uri).body(dto);
 	}
 
-	@PutMapping(value =  "/{id}")
-	public ResponseEntity <TaskDTO> update(@PathVariable Integer id, @RequestBody TaskDTO dto){
-		dto = service.update(id,dto);
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<TaskDTO> update(@PathVariable Integer id, @RequestBody TaskDTO dto) {
+		dto = service.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
-	
+
 	@PatchMapping("/{id}")
 	public ResponseEntity<Void> completeTask(@PathVariable Integer id, @RequestBody Map<String, String> requestBody) {
-	    String status = requestBody.get("status");
-	    service.completeTaskById(id, status);
-	    return ResponseEntity.ok().build();
+		String status = requestBody.get("status");
+		service.completeTaskById(id, status);
+		return ResponseEntity.ok().build();
 	}
-	
-	@DeleteMapping(value =  "/{id}")
-	public ResponseEntity <Void> delete(@PathVariable Integer id){
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
-		return ResponseEntity.ok().build();	
+		return ResponseEntity.ok().build();
 	}
-	
+
 }
