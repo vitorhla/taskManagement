@@ -1,4 +1,4 @@
-package com.taskManagement.controller;
+package com.taskManagement.controllers;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.taskManagement.entities.Role;
 import com.taskManagement.services.RoleService;
 
 @RestController
-@RequestMapping(value =  "/Roles")
+@RequestMapping(value =  "/roles")
 public class RoleController {
 	
 	@Autowired

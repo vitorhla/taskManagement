@@ -1,4 +1,4 @@
-package com.taskManagement.controller;
+package com.taskManagement.controllers;
 
 import java.net.URI;
 
@@ -26,7 +26,7 @@ import com.taskManagement.entities.User;
 import com.taskManagement.services.UserService;
 
 @RestController
-@RequestMapping(value= "/user")
+@RequestMapping(value= "/users")
 public class UserController {
 	
 	@Autowired
@@ -37,7 +37,6 @@ public class UserController {
 		Page<UserDTO> list =  service.findAllPaged(pageable);	
 		return ResponseEntity.ok().body(list);
 	}
-	
 	
 	@GetMapping(value =  "/{id}")
 	public ResponseEntity<UserDTO>findById(@PathVariable Long id){

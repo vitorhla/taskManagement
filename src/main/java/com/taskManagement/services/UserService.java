@@ -43,8 +43,6 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	
-	
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAllPaged(Pageable pageable){
 		Page<User> list =  repository.findAll(pageable);
@@ -71,7 +69,6 @@ public class UserService implements UserDetailsService{
 		
 	}
 	
-
 	private void copyDtoToEntity (UserDTO dto, User entity) {
 		
 		entity.setEmail(dto.getEmail());
@@ -103,7 +100,6 @@ public class UserService implements UserDetailsService{
 	}
 
 
-	
 	public void  delete (Long id) {
 		
 		try {
@@ -118,10 +114,6 @@ public class UserService implements UserDetailsService{
 		
 	}
 	
-	
-
-
-
 		@Override
 		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 			User user = repository.findByEmail(username);
@@ -136,18 +128,4 @@ public class UserService implements UserDetailsService{
 			return user;
 		}
 	
-	
-		
-		
-		
-		
-		
-		
 	}
-	
-	
-	
-	
-	
-
-

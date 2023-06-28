@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.taskManagement.controller.exceptios.FieldMessage;
+import com.taskManagement.controllers.exceptios.FieldMessage;
 import com.taskManagement.dto.UserInsertDTO;
 import com.taskManagement.entities.User;
 import com.taskManagement.repositories.UserRepository;

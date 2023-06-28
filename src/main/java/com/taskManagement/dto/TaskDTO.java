@@ -2,6 +2,7 @@ package com.taskManagement.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import com.taskManagement.entities.Task;
 
 public class TaskDTO implements Serializable {

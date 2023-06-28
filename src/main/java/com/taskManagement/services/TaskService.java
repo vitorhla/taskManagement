@@ -27,11 +27,9 @@ import com.taskManagement.services.exceptions.DatabaseException;
 @Service
 public class TaskService {
 	
-	
 	@Autowired
 	private TaskRepository repository;
 
-	
 	@Autowired
 	private UserRepository userRepository;	
 	User user;
@@ -45,7 +43,6 @@ public class TaskService {
 		}
 	}
 	
-
 	@Transactional(readOnly = true)
 	public TaskDTO findTaskById(Integer id) {
 	    buscarUsuarioLogado();

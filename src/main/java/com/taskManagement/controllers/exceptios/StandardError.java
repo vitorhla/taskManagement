@@ -1,4 +1,4 @@
-package com.taskManagement.controller.exceptios;
+package com.taskManagement.controllers.exceptios;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -16,8 +16,6 @@ public class StandardError implements Serializable {
 
 	}
 
-	
-	
 	public StandardError(Instant timestamp, Integer status, String error, String message, String path) {
 		super();
 		this.timestamp = timestamp;
@@ -26,8 +24,6 @@ public class StandardError implements Serializable {
 		this.message = message;
 		this.path = path;
 	}
-
-
 
 	public Instant getTimestamp() {
 		return timestamp;

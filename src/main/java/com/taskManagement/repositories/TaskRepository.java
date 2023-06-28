@@ -14,24 +14,18 @@ import com.taskManagement.entities.Task;
 
 public interface TaskRepository extends JpaRepository<Task, Integer>{
 
-	
 	@Transactional
 	@Query(nativeQuery = true, value = "SELECT ID, COD_USER, DATA_CRIACAO, DESCRICAO, STATUS, TITULO FROM TASK WHERE ID = :id AND COD_USER = :coduser")
 	Task findTaskById(@Param("id") int id, @Param("coduser") Long coduser);
 
-	
-	
 	@Transactional
 	@Query(nativeQuery = true, value = "SELECT ID, COD_USER, DATA_CRIACAO, DESCRICAO, STATUS, TITULO FROM TASK WHERE COD_USER = :coduser")
 	List<Task> findAllTask(@Param("coduser") Long coduser);
-
 
 	@Transactional
 	@Query(nativeQuery = true, value = "SELECT ID, COD_USER, DATA_CRIACAO, DESCRICAO, STATUS, TITULO FROM TASK WHERE COD_USER = :coduser")
 	Page<Task> findAllPage(@Param("coduser") Long coduser,  Pageable page);
 
-
-	
 	@Modifying
 	@Query(nativeQuery = true, value = "DELETE FROM TASK WHERE ID = :id")
 	void deleteTaskById(@Param("id") int id);
@@ -39,6 +33,5 @@ public interface TaskRepository extends JpaRepository<Task, Integer>{
 	@Modifying
 	@Query(nativeQuery = true, value = "UPDATE TASK SET STATUS = :status WHERE ID = :id")
 	void completeTaskById(@Param("id") int id, @Param("status") String  status);
-	
 	
 }

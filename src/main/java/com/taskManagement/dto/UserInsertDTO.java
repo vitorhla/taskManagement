@@ -5,7 +5,6 @@ import com.taskManagement.services.validation.UserInsertValid;
 @UserInsertValid
 public class UserInsertDTO extends UserDTO{
 	private static final long serialVersionUID = 1L;
-
 	
 	private String password;
 
@@ -14,7 +13,6 @@ public class UserInsertDTO extends UserDTO{
 		super();
 	}
 	
-
 	public String getPassword() {
 		return password;
 	}

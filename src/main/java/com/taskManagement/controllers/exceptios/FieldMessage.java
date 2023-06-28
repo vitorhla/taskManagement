@@ -1,4 +1,4 @@
-package com.taskManagement.controller.exceptios;
+package com.taskManagement.controllers.exceptios;
 
 import java.io.Serializable;
 
@@ -12,8 +12,6 @@ public class FieldMessage implements Serializable {
 	
 	}
 	
-	
-
 	public FieldMessage(String fieldName, String message) {
 		
 		this.fieldName = fieldName;
@@ -34,9 +32,6 @@ public class FieldMessage implements Serializable {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	
-	
+	}	
 	
 }
